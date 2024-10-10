@@ -25,10 +25,10 @@
                         <th>วันที่</th>
                         <th>CID</th>
                         <th>ชื่อผู้ลงทะเบียน</th>
+                        <th>วันเกิด</th>
                         <th>อายุ</th>
                         <th>เบอร์โทร</th>
                         <th>ที่อยู่</th>
-                        <th>หน่วยงาน</th>
                         <th>กิจกรรม</th>
                         <th>วันที่ตรวจ</th>
                         <th>สถานะ</th>
@@ -43,13 +43,13 @@
                             <td>{{ date('d/m/Y', strtotime($res->reg_date)) }}</td>
                             <td>{{ $res->reg_cid }}</td>
                             <td>{{ $res->reg_prefix.$res->reg_visitor }}</td>
+                            <td>{{ date('d/m/Y', strtotime('+543 years',strtotime($res->reg_dob))) }}</td>
                             <td>{{ $res->reg_age }}</td>
                             <td>{{ $res->reg_phone }}</td>
                             <td>
                                 @php $adr = explode(",",$res->reg_address) @endphp
                                 {{ "บ้านเลขที่ ".$adr[0]." หมู่ ".$adr[1]." ตำบล".$adr[2]." อำเภอ".$adr[3]." จังหวัด".$adr[4]." รหัสไปรษณีย์ ".$adr[5] }}
                             </td>
-                            <td>{{ $res->reg_agency }}</td>
                             <td>{{ $res->a_name }}</td>
                             <td>{{ $res->exam_date }}</td>
                             <td>{{ $res->reg_status }}</td>
