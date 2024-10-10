@@ -1,0 +1,27 @@
+services:
+  app:
+    image: php:8.2-fpm # ต้องตรงกับ php images ที่มีอยู่ในเครื่อง
+    container_name: laravel_app_atk # ชื่อต้องไม่ซ้ำกับ container เดิม
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - laravel
+
+  webserver:
+    image: nginx:alpine # ต้องตรงกับ nginx images ที่มีอยู่ในเครื่อง
+    container_name: laravel_webserver_atk # ชื่อต้องไม่ซ้ำกับ container เดิม
+    restart: unless-stopped
+    ports:
+      - "8082:80" # ต้องไม่ซ้ำกับ port เดิมในเครื่อง
+    volumes:
+      - ./:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    driver: bridge
