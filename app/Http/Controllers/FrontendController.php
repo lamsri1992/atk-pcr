@@ -30,19 +30,37 @@ class FrontendController extends Controller
             'reg_visitor' => 'required',
             'reg_position' => 'required',
             'reg_agency' => 'required',
-            'reg_phone' => 'required'
+            'reg_phone' => 'required',
+            'reg_cid' => 'required',
+            'reg_prefix' => 'required',
+            'reg_age' => 'required',
+            'no' => 'required',
+            'moo' => 'required',
+            'district' => 'required',
+            'sub_district' => 'required',
+            'province' => 'required',
+            'zipcode' => 'required',
       
         ],
         [
             'reg_date.required'=>'กรุณาระบุวันที่ลงทะเบียน',
+            'reg_cid.required'=>'กรุณาระบุหมายเลข 13 หลัก',
+            'reg_prefix.required'=>'กรุณาระบุคำนำหน้า',
+            'reg_age.required'=>'กรุณาระบุอายุ',
             'reg_visitor.required'=>'กรุณาระบุชื่อ สกุล ผู้ลงทะเบียน',
             'reg_position.required'=>'กรุณาระบุตำแหน่ง',
             'reg_agency.required'=>'กรุณาระบุสถานที่ทำงาน',
             'reg_phone.required'=>'กรุณาระบุเบอร์โทร',
+            'no.required'=>'กรุณาระบุบ้านเลขที่',
+            'moo.required'=>'กรุณาระบุหมู่ หมู่บ้าน',
+            'sub_district.required'=>'กรุณาระบุตำบล',
+            'district.required'=>'กรุณาระบุอำเภอ',
+            'province.required'=>'กรุณาระบุจังหวัด',
+            'zipcode.required'=>'กรุณาระบุรหัสไปรษณีย์',
             
         ]
     );
-
+    $address = $request->no.",".$request->moo.",".$request->sub_district.",".$request->district.",".$request->province.",".$request->zipcode;
     DB::table('register')->insert(
         [
             'reg_date' => $request->reg_date,
@@ -51,7 +69,11 @@ class FrontendController extends Controller
             'reg_agency' => $request->reg_agency,
             'reg_phone' => $request->reg_phone,
             'activity_a_id' => $id,
-            'reg_status'=>'ยังไม่พิมพ์'
+            'reg_status'=>'ยังไม่พิมพ์',
+            'reg_cid' => $request->reg_cid,
+            'reg_prefix' => $request->reg_prefix,
+            'reg_age' => $request->reg_age,
+            'reg_address' => $address,
         ]
         );
 

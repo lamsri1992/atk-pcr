@@ -3,19 +3,18 @@
     <div class="card mt-4">
         <div class="card-header">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            {{-- <li class="breadcrumb-item"><a href="#">Home</a></li> --}}
                             <li class="breadcrumb-item"><a href="{{ route('activity.index') }}">รายการกิจกรรม</a></li>
                             <li class="breadcrumb-item active" aria-current="page">รายชื่อผู้ลงทะเบียนกิจกรรม
                             <li>
                         </ol>
                     </nav>
                 </div>
-                <div class="col-md-6 d-flex justify-content-end">
+                {{-- <div class="col-md-6 d-flex justify-content-end">
                     <a href="{{ route('register.create') }}" class="btn btn-success">เพิ่ม</a>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="card-body">
@@ -24,8 +23,11 @@
                     <tr>
                         <th>ID</th>
                         <th>วันที่</th>
+                        <th>CID</th>
                         <th>ชื่อผู้ลงทะเบียน</th>
+                        <th>อายุ</th>
                         <th>เบอร์โทร</th>
+                        <th>ที่อยู่</th>
                         <th>หน่วยงาน</th>
                         <th>กิจกรรม</th>
                         <th>วันที่ตรวจ</th>
@@ -38,9 +40,15 @@
                     @foreach ($result as $res)
                         <tr>
                             <td>{{ $res->reg_id }}</td>
-                            <td>{{ $res->reg_date }}</td>
-                            <td>{{ $res->reg_visitor }}</td>
+                            <td>{{ date('d/m/Y', strtotime($res->reg_date)) }}</td>
+                            <td>{{ $res->reg_cid }}</td>
+                            <td>{{ $res->reg_prefix.$res->reg_visitor }}</td>
+                            <td>{{ $res->reg_age }}</td>
                             <td>{{ $res->reg_phone }}</td>
+                            <td>
+                                @php $adr = explode(",",$res->reg_address) @endphp
+                                {{ "บ้านเลขที่ ".$adr[0]." หมู่ ".$adr[1]." ตำบล".$adr[2]." อำเภอ".$adr[3]." จังหวัด".$adr[4]." รหัสไปรษณีย์ ".$adr[5] }}
+                            </td>
                             <td>{{ $res->reg_agency }}</td>
                             <td>{{ $res->a_name }}</td>
                             <td>{{ $res->exam_date }}</td>
